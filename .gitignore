@@ -1,0 +1,4 @@
+node_modules
+.env
+data/journals.json
+package-lock.json

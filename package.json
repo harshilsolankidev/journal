@@ -1,0 +1,21 @@
+{
+  "name": "journal-flow",
+  "version": "1.0.0",
+  "description": "JournalFlow — production-grade journal app with mood tracking and search",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": ["journal", "express", "ejs", "nodejs"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "uuid": "^11.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

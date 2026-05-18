@@ -1,0 +1,73 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+
+<main class="mx-auto flex min-h-[calc(100vh-8rem)] max-w-6xl flex-col px-4 py-8 sm:px-6">
+  <%- include('partials/flash') %>
+
+  <section class="mb-10">
+    <p class="text-sm font-medium text-brand-600 dark:text-brand-400">Welcome back</p>
+    <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl"><%= appName %> Dashboard</h1>
+    <p class="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">Track your mood, reflect on your day, and build a meaningful writing habit.</p>
+  </section>
+
+  <section class="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Entries</p>
+      <p class="mt-2 text-4xl font-bold text-slate-900 dark:text-white"><%= stats.totalEntries %></p>
+    </article>
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Written Today</p>
+      <p class="mt-2 text-4xl font-bold text-brand-600 dark:text-brand-400"><%= stats.entriesToday %></p>
+    </article>
+    <article class="rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-white shadow-glow sm:col-span-2 lg:col-span-1">
+      <p class="text-sm font-medium text-brand-100">Quick action</p>
+      <p class="mt-2 text-lg font-semibold">Start a new reflection</p>
+      <a href="/journals/new" class="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur hover:bg-white/30">New Entry &rarr;</a>
+    </article>
+  </section>
+
+  <section class="mb-10 grid gap-8 lg:grid-cols-2">
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Mood Overview</h2>
+      <ul class="mt-6 space-y-4">
+        <% stats.moods.forEach(function(m) { %>
+          <% const count = stats.moodCounts[m.value] || 0; %>
+          <% const pct = stats.totalEntries ? Math.round((count / stats.totalEntries) * 100) : 0; %>
+          <li>
+            <div class="mb-1 flex items-center justify-between text-sm">
+              <span><%= m.emoji %> <%= m.label %></span>
+              <span class="text-slate-500"><%= count %> (<%= pct %>%)</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+              <div class="h-full rounded-full bg-brand-500" style="width: <%= pct %>%"></div>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Recent Entries</h2>
+        <a href="/journals" class="text-sm font-medium text-brand-600 dark:text-brand-400">View all</a>
+      </div>
+      <% if (stats.recent.length === 0) { %>
+        <p class="mt-8 text-center text-sm text-slate-500">No entries yet. <a href="/journals/new" class="text-brand-600">Write your first journal</a>.</p>
+      <% } else { %>
+        <ul class="mt-6 divide-y divide-slate-100 dark:divide-slate-800">
+          <% stats.recent.forEach(function(j) { %>
+            <li class="py-4">
+              <a href="/journals/<%= j.id %>" class="block">
+                <p class="font-medium text-slate-900 dark:text-white"><%= j.title %></p>
+                <p class="mt-1 line-clamp-2 text-sm text-slate-500"><%= j.content %></p>
+                <p class="mt-2 text-xs text-slate-400"><%= j.moodMeta.emoji %> <%= formatRelative(j.updatedAt) %></p>
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+      <% } %>
+    </article>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

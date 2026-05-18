@@ -1,0 +1,24 @@
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle at 1px 1px, rgb(148 163 184 / 0.12) 1px, transparent 0);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.dark body::before {
+  background-image: radial-gradient(circle at 1px 1px, rgb(71 85 105 / 0.2) 1px, transparent 0);
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
