@@ -1,0 +1,36 @@
+<header class="topbar-panel sticky top-0 z-30 lg:hidden">
+  <div class="flex items-center justify-between gap-3 px-4 py-3.5">
+    <button type="button" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false"
+            class="btn-secondary rounded-xl p-2.5">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+    <a href="/" class="text-sm font-semibold tracking-tight text-primary"><%= appName %></a>
+    <a href="/journals/new" aria-label="New entry" class="btn-primary rounded-xl p-2.5">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+    </a>
+  </div>
+</header>
+
+<header class="topbar-panel sticky top-0 z-30 hidden lg:block">
+  <div class="flex items-center justify-between gap-6 px-8 py-4">
+    <div class="min-w-0">
+      <% if (typeof pageTitle !== 'undefined' && pageTitle) { %>
+        <div class="flex items-center gap-2 text-xs text-muted">
+          <span><%= appName %></span>
+          <svg class="h-3 w-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          <span class="text-secondary"><%= pageTitle %></span>
+        </div>
+        <h2 class="mt-0.5 text-xl font-semibold tracking-tight text-primary"><%= pageTitle %></h2>
+      <% } %>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="/journals" class="btn-secondary hidden rounded-xl px-4 py-2 text-sm font-medium sm:inline-flex">Browse</a>
+      <a href="/journals/new" class="btn-primary inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+        New Entry
+      </a>
+    </div>
+  </div>
+</header>

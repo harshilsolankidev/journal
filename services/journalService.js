@@ -112,9 +112,27 @@ async function getDashboardStats() {
     (j) => new Date(j.createdAt).toDateString() === today
   ).length;
 
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const entriesThisWeek = journals.filter(
+    (j) => new Date(j.createdAt) >= weekAgo
+  ).length;
+
+  let topMood = null;
+  let topMoodCount = 0;
+  MOODS.forEach((m) => {
+    if (moodCounts[m.value] > topMoodCount) {
+      topMoodCount = moodCounts[m.value];
+      topMood = m;
+    }
+  });
+
   return {
     totalEntries: journals.length,
     entriesToday,
+    entriesThisWeek,
+    topMood,
+    topMoodCount,
     moodCounts,
     moods: MOODS,
     recent,
